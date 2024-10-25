@@ -1,5 +1,5 @@
 // Modèle de données produits
-const products = [
+const listeProduits = [
     {
         name: 'Tartiflette à réaction',
         price: 599.99,
@@ -19,7 +19,7 @@ const products = [
 
 // Fonction pour remplir le localStorage pour les tests
 function fillLocalStorage() {
-    localStorage.setItem('products', JSON.stringify(products));
+    localStorage.setItem('listeProduits', JSON.stringify(listeProduits));
 }
 //fillLocalStorage();
 
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Fonction pour véifier si le stock est vide ou non et affichier l'alerte
     function alerteVide() {
-        let listeProduits = JSON.parse(localStorage.getItem('products')) || []; // Récupération des produits, si vide alors []
+        let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
 
         const divAlert = document.getElementById('alert');
 
@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Fonction pour afficher les produits dans le tableau
-    function displayProducts() {
-        let listeProduits = JSON.parse(localStorage.getItem("products")) || []; // Récupération des produits, si vide alors []
+    function displaylisteProduits() {
+        let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
 
         const bodyTableau = document.getElementById("products");
         bodyTableau.innerHTML = ""; // On vide le tableau
@@ -83,6 +83,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    const formulaire = document.getElementById("ajoutForm");
+
+    // Formulaire d'ajout d'un produit dans le stock
+    formulaire.addEventListener('submit', (e) => {
+        e.preventDefault(); // Empêche le fonctionnement normal du formulaire
+
+        let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+
+        // On récupère les éléments du formulaire
+        const inputName = document.getElementById("add-name");
+        const inputPrice = document.getElementById("add-price");
+        const inputStock = document.getElementById("add-stock");
+
+        // On créé le produit
+        const produit = {
+            name: inputName.value,
+            price: parseFloat(inputPrice.value),
+            stock: parseInt(inputStock.value)
+        };
+
+        // On l'ajoute à la liste de produit ainsi qu'au localStorage
+        listeProduits.push(produit);
+        localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+        listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+
+        alerteVide();
+        displaylisteProduits();
+    });
+
     alerteVide();
-    displayProducts();
+    displaylisteProduits();
 });
