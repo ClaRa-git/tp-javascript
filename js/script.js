@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Fonction pour afficher les produits dans le tableau
-    function displaylisteProduits() {
+    function displayProducts() {
         let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
 
         const bodyTableau = document.getElementById("products");
@@ -63,15 +63,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const buttonMinus = document.createElement("button"); // Création du bouton de retrait
             buttonMinus.className = "btn btn-primary btn-sm stock-del";
             buttonMinus.innerHTML = "&minus;";
+            // On est à l'écoute du clic sur le bouton pour retirer -1 au nombre en stock
             buttonMinus.addEventListener("click", () => {
-                console.log("Retrait");
+                //console.log("Retrait");
+                element.stock--;
+                localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+                listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+                displayProducts();
             });
 
             const buttonAdd = document.createElement("button"); // Création du bouton d'ajout
             buttonAdd.className = "btn btn-outline-primary btn-sm stock-add";
             buttonAdd.innerHTML = "&plus;";
+            // On est à l'écoute du clic sur le bouton pour ajouter +1 au nombre en stock
             buttonAdd.addEventListener("click", () => {
-                console.log("Ajout");
+                //console.log("Ajout");
+                element.stock++;
+                localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+                listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+                displayProducts();
             });
 
             tdButtonAddMinus.append(buttonMinus, buttonAdd); // Ajout des boutons dans la cellule
@@ -81,8 +91,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const buttonDelete = document.createElement("button"); // Création du bouton Delete
             buttonDelete.className = "btn btn-danger btn-sm product-del";
             buttonDelete.innerHTML = "&Cross;";
+            // On est à l'écoute du clic sur le bouton pour supprimer le produit du stock
             buttonDelete.addEventListener("click", () => {
-                console.log("Suppresion");
+                //console.log("Suppresion");
+                // On affiche une popup d'alerte pour confirmer la suppression
+                if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
+                    // console.log("Suppression");
+                    listeProduits = listeProduits.filter((produit) => produit.name !== element.name);
+                    localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+                    alerteVide();
+                    displayProducts();
+                }
             });
 
             tdDelete.appendChild(buttonDelete); // Ajout du bouton à la cellule
@@ -118,9 +137,9 @@ document.addEventListener('DOMContentLoaded', function () {
         listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
 
         alerteVide();
-        displaylisteProduits();
+        displayProducts();
     });
 
     alerteVide();
-    displaylisteProduits();
+    displayProducts();
 });
