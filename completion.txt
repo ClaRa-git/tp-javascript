@@ -20,4 +20,7 @@ Fonctions supplémentaires possibles :
  - Masquer le tableau s'il n'y a aucun produit en stock
  - Créer la popup d'alerte (ne pas se servir de celle du système)
  - Trier le tableau (nom / prix / quantité)
- - Vérifier si l'élément existe déjà
+ - Vérifier si l'élément existe déjà (a)
+
+ (a)
+ -> Création d'une fonction majuscule pour ne pas être gêner par la casse

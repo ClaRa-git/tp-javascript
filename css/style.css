@@ -34,3 +34,7 @@ td {
 button {
   margin: 5px;
 }
+
+.row {
+  align-items: center;
+}

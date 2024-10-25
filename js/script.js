@@ -21,18 +21,25 @@ const products = [
 function fillLocalStorage() {
     localStorage.setItem('listeProduits', JSON.stringify(products));
 }
-fillLocalStorage();
+//fillLocalStorage();
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
+    // Fonction pour mettre en majuscule les noms des produits
+    function miseEnMaj() {
+        let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+        listeProduits.forEach((element) => {
+            element.name = element.name.toUpperCase();
+        });
+    }
 
-    //Fonction pour véifier si le stock est vide ou non et affichier l'alerte
+    //Fonction pour vérifier si le stock est vide ou non et affichier l'alerte
     function alerteVide() {
         let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
 
-        const divAlert = document.getElementById('alert');
+        const divAlert = document.getElementById("alert");
 
-        if (listeProduits.lenght <= 0) {
+        if (listeProduits.length <= 0) {
             divAlert.style.display = "block"; // Si le stock est vide, on affiche l'alerte
         } else {
             divAlert.style.display = "none"; // Sinon on cache l'alerte
@@ -87,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     element.stock--;
                     localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
                     listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
-                    alerteVide();
                     displayProducts();
                 }
             });
@@ -171,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // On créé le produit
         const produit = {
-            name: inputName.value,
+            name: inputName.value, // inputName.value.toUpperCase()
             price: parseFloat(inputPrice.value),
             stock: parseInt(inputStock.value)
         };
