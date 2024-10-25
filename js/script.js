@@ -17,8 +17,14 @@ const products = [
     }
 ];
 
+// Fonction pour remplir le localStorage pour les tests
+function fillLocalStorage() {
+    localStorage.setItem('products', JSON.stringify(products));
+}
+//fillLocalStorage();
+
 // DOMContentLoaded
-document.addEventListener( 'DOMContentLoaded', function() {
-    console.log( '%c🚀', 'font-size:180px' );
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('%c🚀', 'font-size:180px');
     // Votre code ici !
 });
