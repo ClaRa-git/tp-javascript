@@ -19,9 +19,15 @@ Bon développement !
 Fonctions supplémentaires possibles :
  - Masquer le tableau s'il n'y a aucun produit en stock
  - Créer la popup d'alerte (ne pas se servir de celle du système)
- - Trier le tableau (nom / prix / quantité)
- - Vérifier si l'élément existe déjà (a)
+ - Trier le tableau (nom / prix / quantité) (b)
+ - Vérifier si l'élément existe déjà (a) <-- OK
 
  (a)
- -> Création d'une fonction majuscule pour ne pas être gêner par la casse
+ -> Création d'une fonction majuscule pour ne pas être gêner par la casse (permet de mettre en maj des données déjà existantes)
+        => Inutile - il suffit d'utiliser toUpperCase() au moment de la comparaison
+ -> Comparaison au moment de créer un nouvel élément -> Si ok, on le rentre dans le tableau, sinon on arrête
+
+ (b)
+ -> https://www.trucsweb.com/tutoriels/javascript/tableau-tri/
+ -> Création d'une ligne dans le tableau pour le tri ? (ou utilisation de la ligne de th existante)
  -> Utilisation de la méthode monTableau.sort() pour le nom et monTableau.sort((a, b) => a - b); pour les nombres.

@@ -17,16 +17,8 @@ const products = [
     }
 ];
 
-// Fonction pour mettre en majuscule les noms des produits
-function miseEnMaj() {
-    products.forEach((element) => {
-        element.name = element.name.toUpperCase();
-    });
-}
-
 // Fonction pour remplir le localStorage pour les tests
 function fillLocalStorage() {
-    miseEnMaj();
     localStorage.setItem('listeProduits', JSON.stringify(products));
 }
 //fillLocalStorage();
@@ -170,27 +162,39 @@ document.addEventListener('DOMContentLoaded', function () {
         const inputStock = document.getElementById("add-stock");
 
         // On vérifie que les entrées ne sont pas vides
-        if (!inputName.value || !inputPrice || !inputStock) {
+        if (!inputName.value || !inputPrice.value || !inputStock.value) {
             alert("Veuillez remplir tous les champs");
             return;
         }
 
+        // Vérification de si un produit est déjà dans le tableau (for car forEach ne convient pas ici)
+        for (let i = 0; i < listeProduits.length; i++) {
+            if (listeProduits[i].name.toUpperCase() === inputName.value.toUpperCase()) {
+                alert("Ce produit est déjà en stock !");
+                // Une fois le produit créé, on vide les inputs du formulaire
+                inputName.value = "";
+                inputPrice.value = "";
+                inputStock.value = "";
+                return;
+            }
+        }
+
         // On créé le produit
         const produit = {
-            name: inputName.value.toUpperCase(),
+            name: inputName.value,
             price: parseFloat(inputPrice.value),
             stock: parseInt(inputStock.value)
         };
-
-        // Une fois le produit créé, on vide les inputs du formulaire
-        inputName.value = "";
-        inputPrice.value = "";
-        inputStock.value = "";
 
         // On l'ajoute à la liste de produit ainsi qu'au localStorage
         listeProduits.push(produit);
         localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
         listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+
+        // Une fois le produit créé, on vide les inputs du formulaire
+        inputName.value = "";
+        inputPrice.value = "";
+        inputStock.value = "";
 
         alerteVide();
         displayProducts();
