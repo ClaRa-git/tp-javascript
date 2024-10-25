@@ -57,6 +57,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td class="stock">${element.stock}</td>
             `;
 
+            // Ajout de couleurpour voir l'état du stock. Vert >10 ; Orange (0 < et < 10) ; Rouge = 0
+            if (element.stock === 0) {
+                tableRow.classList.add("table-danger");
+                tableRow.classList.remove("table-warning");
+                tableRow.classList.remove("table-success");
+            } else if (element.stock < 10) {
+                tableRow.classList.remove("table-danger");
+                tableRow.classList.add("table-warning");
+                tableRow.classList.remove("table-success");
+            } else {
+                tableRow.classList.remove("table-danger");
+                tableRow.classList.remove("table-warning");
+                tableRow.classList.add("table-success");
+            }
+
             const tdButtonAddMinus = document.createElement("td"); // Création de la cellule pour les boutons +/-
             tdButtonAddMinus.className = "text-nowrap";
 
@@ -71,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     element.stock--;
                     localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
                     listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+                    alerteVide();
                     displayProducts();
                 }
             });
