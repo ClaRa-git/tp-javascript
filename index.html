@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Gestion de stock</h1>
@@ -19,7 +21,7 @@
             Ce message doit disparaître lorsqu'il y a des produits dans liste,
             et réapparaître si on supprime tous les produits.
         -->
-        <div class="alert alert-warning">
+        <div class="alert alert-warning" id="alert">
             Aucun produit en stock.
         </div>
 
@@ -44,7 +46,7 @@
                     -> button.stock-add click incrémente le stock de 1
                     -> button.product-del supprime le produit
                 -->
-                <tr>
+                <!--<tr>
                     <td class="w-100">Nom du produit</td>
                     <td>499,00</td>
                     <td class="stock">8</td>
@@ -55,7 +57,7 @@
                     <td>
                         <button type="button" class="btn btn-danger btn-sm product-del">&Cross;</button>
                     </td>
-                </tr>
+                </tr>-->
                 <!-- Fin HTML produit -->
 
             </tbody>
@@ -87,4 +89,5 @@
 
     <script src="./js/script.js"></script>
 </body>
+
 </html>
