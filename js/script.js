@@ -66,10 +66,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // On est à l'écoute du clic sur le bouton pour retirer -1 au nombre en stock
             buttonMinus.addEventListener("click", () => {
                 //console.log("Retrait");
-                element.stock--;
-                localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-                listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
-                displayProducts();
+                // on vérifie s'il reste des éléments à enlever
+                if (element.stock > 0) {
+                    element.stock--;
+                    localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+                    listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+                    displayProducts();
+                }
             });
 
             const buttonAdd = document.createElement("button"); // Création du bouton d'ajout
