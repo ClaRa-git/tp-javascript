@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Gestion de Stock</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gestion de stock</h1>
+        <hr>
+
+        <!--
+            Ce message doit disparaître lorsqu'il y a des produits dans liste,
+            et réapparaître si on supprime tous les produits.
+        -->
+        <div class="alert alert-warning">
+            Aucun produit en stock.
+        </div>
+
+
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nom du produit</th>
+                    <th>Prix unitaire</th>
+                    <th colspan="2">Stock</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="products">
+
+                <!--
+                    HTML à générer pour un produit (a supprimer d'ici une fois géré par le JS):
+                    -> td.stock prend une class de couleur supplémentaire:
+                        - .table-warning lorsque le stock passe en dessous de 10
+                        - .table-danger lorsque le stock est à 0
+                    -> button.stock-del click décrémente le stock de 1
+                    -> button.stock-add click incrémente le stock de 1
+                    -> button.product-del supprime le produit
+                -->
+                <tr>
+                    <td class="w-100">Nom du produit</td>
+                    <td>499,00</td>
+                    <td class="stock">8</td>
+                    <td class="text-nowrap">
+                        <button type="button" class="btn btn-outline-primary btn-sm stock-del">&minus;</button>
+                        <button type="button" class="btn btn-primary btn-sm stock-add">&plus;</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm product-del">&Cross;</button>
+                    </td>
+                </tr>
+                <!-- Fin HTML produit -->
+
+            </tbody>
+        </table>
+
+        <hr>
+        <div class="card">
+            <h5 class="card-header">Nouveau produit</h5>
+
+            <!-- Formulaire d'ajout -->
+            <form class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="add-name" class="form-control" placeholder="Nom du produit">
+                    </div>
+                    <div class="col">
+                        <input type="text" id="add-price" class="form-control" placeholder="Prix unitaire">
+                    </div>
+                    <div class="col">
+                        <input type="text" id="add-stock" class="form-control" placeholder="Stock initial">
+                    </div>
+                    <div class="col flex-grow-0">
+                        <button type="submit" class="btn btn-success">Ajouter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>

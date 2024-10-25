@@ -1,0 +1,17 @@
+----- TP JAVASCRIPT: GESTION DE STOCK -----
+
+Rendre la page fonctionnelle en JS.
+
+Fonctionnalités:
+- Ajout de nouveau produit.
+- Suppression de produits existants.
+- Modification (+/-) du stock de produits existants.
+- Coloration de la cellule de stock: orange si < 10 (class .table-warning), rouge si = 0 (class .table-danger).
+- Sauvegarde des produits dans localStorage (enregistrement permanent).
+- Lorsque l'on supprime tous les produits le message d'alerte s'affiche.
+
+Données d'exemple fournies dans le JS.
+
+/!\ Lisez-bien les commentaires dans le HTML.
+
+Bon développement !
