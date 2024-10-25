@@ -57,7 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td class="stock">${element.stock}</td>
             `;
 
-            // Ajout de couleurpour voir l'état du stock. Vert >10 ; Orange (0 < et < 10) ; Rouge = 0
+            // Ajout de couleur pour voir l'état du stock. Vert >10 ; Orange (0 < et < 10) ; Rouge = 0
+            // On enlève les classes qui ne sont pas pertinente (pas d'erreur si elles n'existent pas)
             if (element.stock === 0) {
                 tableRow.classList.add("table-danger");
                 tableRow.classList.remove("table-warning");
@@ -155,6 +156,11 @@ document.addEventListener('DOMContentLoaded', function () {
             price: parseFloat(inputPrice.value),
             stock: parseInt(inputStock.value)
         };
+
+        // Une fois le produit créé, on vide les inputs du formulaire
+        inputName.value = "";
+        inputPrice.value = "";
+        inputStock.value = "";
 
         // On l'ajoute à la liste de produit ainsi qu'au localStorage
         listeProduits.push(produit);
