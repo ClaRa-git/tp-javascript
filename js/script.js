@@ -57,6 +57,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td class="stock">${element.stock}</td>
             `;
 
+            const tdButtonAddMinus = document.createElement("td"); // Création de la cellule pour les boutons +/-
+            tdButtonAddMinus.className = "text-nowrap";
+
+            const buttonMinus = document.createElement("button"); // Création du bouton de retrait
+            buttonMinus.className = "btn btn-primary btn-sm stock-del";
+            buttonMinus.innerHTML = "&minus;";
+
+            const buttonAdd = document.createElement("button"); // Création du bouton d'ajout
+            buttonAdd.className = "btn btn-outline-primary btn-sm stock-add";
+            buttonAdd.innerHTML = "&plus;";
+
+            tdButtonAddMinus.append(buttonMinus, buttonAdd); // Ajout des boutons dans la cellule
+
+            const tdDelete = document.createElement("td"); // Création de la cellule pour le bouton Delete
+            tdDelete.style.textAlign = "center";
+            const buttonDelete = document.createElement("button"); // Création du bouton Delete
+            buttonDelete.className = "btn btn-danger btn-sm product-del";
+            buttonDelete.innerHTML = "&Cross;";
+
+            tdDelete.appendChild(buttonDelete); // Ajout du bouton à la cellule
+
+            tableRow.append(tdButtonAddMinus, tdDelete); // Ajout des case à la ligne du tableau
             bodyTableau.appendChild(tableRow);
         });
     }
