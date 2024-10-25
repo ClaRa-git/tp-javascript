@@ -63,10 +63,16 @@ document.addEventListener('DOMContentLoaded', function () {
             const buttonMinus = document.createElement("button"); // Création du bouton de retrait
             buttonMinus.className = "btn btn-primary btn-sm stock-del";
             buttonMinus.innerHTML = "&minus;";
+            buttonMinus.addEventListener("click", () => {
+                console.log("Retrait");
+            });
 
             const buttonAdd = document.createElement("button"); // Création du bouton d'ajout
             buttonAdd.className = "btn btn-outline-primary btn-sm stock-add";
             buttonAdd.innerHTML = "&plus;";
+            buttonAdd.addEventListener("click", () => {
+                console.log("Ajout");
+            });
 
             tdButtonAddMinus.append(buttonMinus, buttonAdd); // Ajout des boutons dans la cellule
 
@@ -75,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const buttonDelete = document.createElement("button"); // Création du bouton Delete
             buttonDelete.className = "btn btn-danger btn-sm product-del";
             buttonDelete.innerHTML = "&Cross;";
+            buttonDelete.addEventListener("click", () => {
+                console.log("Suppresion");
+            });
 
             tdDelete.appendChild(buttonDelete); // Ajout du bouton à la cellule
 
