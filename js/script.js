@@ -143,6 +143,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const inputPrice = document.getElementById("add-price");
         const inputStock = document.getElementById("add-stock");
 
+        // On vérifie que les entrées ne sont pas vides
+        if (!inputName.value || !inputPrice || !inputStock) {
+            alert("Veuillez remplir tous les champs");
+            return;
+        }
+
         // On créé le produit
         const produit = {
             name: inputName.value,
