@@ -24,3 +24,4 @@ Fonctions supplémentaires possibles :
 
  (a)
  -> Création d'une fonction majuscule pour ne pas être gêner par la casse
+ -> Utilisation de la méthode monTableau.sort() pour le nom et monTableau.sort((a, b) => a - b); pour les nombres.

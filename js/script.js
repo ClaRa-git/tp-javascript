@@ -17,22 +17,22 @@ const products = [
     }
 ];
 
+// Fonction pour mettre en majuscule les noms des produits
+function miseEnMaj() {
+    products.forEach((element) => {
+        element.name = element.name.toUpperCase();
+    });
+}
+
 // Fonction pour remplir le localStorage pour les tests
 function fillLocalStorage() {
+    miseEnMaj();
     localStorage.setItem('listeProduits', JSON.stringify(products));
 }
 //fillLocalStorage();
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
-    // Fonction pour mettre en majuscule les noms des produits
-    function miseEnMaj() {
-        let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
-        listeProduits.forEach((element) => {
-            element.name = element.name.toUpperCase();
-        });
-    }
-
     //Fonction pour vérifier si le stock est vide ou non et affichier l'alerte
     function alerteVide() {
         let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // On créé le produit
         const produit = {
-            name: inputName.value, // inputName.value.toUpperCase()
+            name: inputName.value.toUpperCase(),
             price: parseFloat(inputPrice.value),
             stock: parseInt(inputStock.value)
         };
