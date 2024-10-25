@@ -25,6 +25,17 @@ function fillLocalStorage() {
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('%c🚀', 'font-size:180px');
-    // Votre code ici !
+
+    //Fonction pour véifier si le stock est vide ou non et affichier l'alerte
+    function alerteVide() {
+        let listeProduits = JSON.parse(localStorage.getItem('products')) || []; // Récupération des produits, si vide alors []
+
+        const divAlert = document.getElementById('alert');
+
+        if (listeProduits.lenght <= 0) {
+            divAlert.style.display = "block"; // Si le stock est vide, on affiche l'alerte
+        } else {
+            divAlert.style.display = "none"; // Sinon on cache l'alerte
+        }
+    }
 });
