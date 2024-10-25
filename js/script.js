@@ -1,5 +1,5 @@
 // Modèle de données produits
-const listeProduits = [
+const products = [
     {
         name: 'Tartiflette à réaction',
         price: 599.99,
@@ -19,9 +19,9 @@ const listeProduits = [
 
 // Fonction pour remplir le localStorage pour les tests
 function fillLocalStorage() {
-    localStorage.setItem('listeProduits', JSON.stringify(listeProduits));
+    localStorage.setItem('listeProduits', JSON.stringify(products));
 }
-//fillLocalStorage();
+fillLocalStorage();
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {

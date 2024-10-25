@@ -15,21 +15,20 @@
 
 <body>
     <div class="container">
+        <!-- Titre + icone de suppression totale du stock -->
         <div id="top-container">
             <h1>Gestion de stock</h1>
             <div id="delete-all"></div>
         </div>
+
         <hr>
 
-        <!--
-            Ce message doit disparaître lorsqu'il y a des produits dans liste,
-            et réapparaître si on supprime tous les produits.
-        -->
+        <!-- Message d'alerte si le stock est vide. Doit s'effacer dans le cas contraire -->
         <div class="alert alert-warning" id="alert">
             Aucun produit en stock.
         </div>
 
-
+        <!-- Tableau d'affichage des produits en stock -->
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
@@ -39,35 +38,11 @@
                     <th>Supprimer</th>
                 </tr>
             </thead>
-            <tbody id="products">
-
-                <!--
-                    HTML à générer pour un produit (a supprimer d'ici une fois géré par le JS):
-                    -> td.stock prend une class de couleur supplémentaire:
-                        - .table-warning lorsque le stock passe en dessous de 10
-                        - .table-danger lorsque le stock est à 0
-                    -> button.stock-del click décrémente le stock de 1
-                    -> button.stock-add click incrémente le stock de 1
-                    -> button.product-del supprime le produit
-                -->
-                <!--<tr>
-                    <td class="w-100">Nom du produit</td>
-                    <td>499,00</td>
-                    <td class="stock">8</td>
-                    <td class="text-nowrap">
-                        <button type="button" class="btn btn-outline-primary btn-sm stock-del">&minus;</button>
-                        <button type="button" class="btn btn-primary btn-sm stock-add">&plus;</button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-danger btn-sm product-del">&Cross;</button>
-                    </td>
-                </tr>-->
-                <!-- Fin HTML produit -->
-
-            </tbody>
+            <tbody id="products"></tbody>
         </table>
 
         <hr>
+
         <div class="card">
             <h5 class="card-header">Nouveau produit</h5>
 
