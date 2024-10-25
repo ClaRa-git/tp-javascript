@@ -107,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
             tdButtonAddMinus.append(buttonMinus, buttonAdd); // Ajout des boutons dans la cellule
 
             const tdDelete = document.createElement("td"); // Création de la cellule pour le bouton Delete
-            tdDelete.style.textAlign = "center";
             const buttonDelete = document.createElement("button"); // Création du bouton Delete
             buttonDelete.className = "btn btn-danger btn-sm product-del";
             buttonDelete.innerHTML = "&Cross;";
@@ -130,6 +129,26 @@ document.addEventListener('DOMContentLoaded', function () {
             bodyTableau.appendChild(tableRow);
         });
     }
+
+    // Création de la div contenant l'icone de suppression totale du stock
+    const divDeleteAll = document.getElementById("delete-all");
+    // Icone de suppression
+    let deleteIcon = document.createElement("i");
+    deleteIcon.className = "bi bi-trash icon delete-icon";
+
+    // Si l'utilisateur clique sur l'icone alors on efface tout
+    deleteIcon.addEventListener("click", () => {
+        if (window.confirm("Voulez-vous supprimer la totalité des produits du stock ?")) {
+            //console.log("Suppression totale");
+            listeProduits = [];
+            localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+            alerteVide();
+            displayProducts();
+        }
+    });
+
+    // Ajout de l'icone dans le html
+    divDeleteAll.appendChild(deleteIcon);
 
     const formulaire = document.getElementById("ajoutForm");
 
