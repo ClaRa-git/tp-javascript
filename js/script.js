@@ -38,4 +38,29 @@ document.addEventListener('DOMContentLoaded', function () {
             divAlert.style.display = "none"; // Sinon on cache l'alerte
         }
     }
+
+    // Fonction pour afficher les produits dans le tableau
+    function displayProducts() {
+        let listeProduits = JSON.parse(localStorage.getItem("products")) || []; // Récupération des produits, si vide alors []
+
+        const bodyTableau = document.getElementById("products");
+        bodyTableau.innerHTML = ""; // On vide le tableau
+
+        // On parcourt la liste des produits pour afficher chaque élément
+        listeProduits.forEach((element) => {
+            const tableRow = document.createElement('tr'); // On créé la ligne du tableau
+
+            // On commence à remplir la ligne
+            tableRow.innerHTML = `
+                <td class="w-100">${element.name}</td>
+                <td>${element.price}</td>
+                <td class="stock">${element.stock}</td>
+            `;
+
+            bodyTableau.appendChild(tableRow);
+        });
+    }
+
+    alerteVide();
+    displayProducts();
 });
