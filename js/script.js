@@ -19,12 +19,32 @@ const products = [
 
 // Fonction pour remplir le localStorage pour les tests
 function fillLocalStorage() {
+    products.forEach((product) => {
+        product.name = product.name.toUpperCase();
+    });
     localStorage.setItem('listeProduits', JSON.stringify(products));
 }
 //fillLocalStorage();
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
+
+    // Fonction de tri par nom
+    function sortByName(tableau) {
+        //[...tableau] permet de copier le tableau pour ne pas modifier l'original
+        return [...tableau].sort((a, b) => { return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0; });
+    }
+
+    // Fonction de tri par prix
+    function sortByPrice(tableau) {
+        return [...tableau].sort((a, b) => { return a.price - b.price; });
+    }
+
+    // Fonction de tri par stock
+    function sortByQuantity(tableau) {
+        return [...tableau].sort((a, b) => { return a.stock - b.stock; });
+    }
+
     //Fonction pour vérifier si le stock est vide ou non et affichier l'alerte
     function alerteVide() {
         let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
@@ -41,6 +61,36 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fonction pour afficher les produits dans le tableau
     function displayProducts() {
         let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
+
+        // On récupère les 3 th du tableau
+        const thName = document.getElementById("productName");
+        const thPrice = document.getElementById("productPrice");
+        const thQuantity = document.getElementById("productQuantity");
+
+        thName.title = "Cliquez pour trier par nom";
+        thPrice.title = "Cliquez pour trier par prix";
+        thQuantity.title = "Cliquez pour trier par quantité";
+
+        // On est à l'écoute du clic sur le nom pour trier par nom
+        thName.addEventListener('click', () => {
+            localStorage.setItem('listeProduits', JSON.stringify(sortByName(listeProduits)));
+            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+            displayProducts();
+        });
+
+        // On est à l'écoute du clic sur le prix pour trier par prix
+        thPrice.addEventListener('click', () => {
+            localStorage.setItem('listeProduits', JSON.stringify(sortByPrice(listeProduits)));
+            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+            displayProducts();
+        });
+
+        // On est à l'écoute du clic sur la quantité pour trier par quantité
+        thQuantity.addEventListener('click', () => {
+            localStorage.setItem('listeProduits', JSON.stringify(sortByQuantity(listeProduits)));
+            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+            displayProducts();
+        });
 
         const bodyTableau = document.getElementById("products");
         bodyTableau.innerHTML = ""; // On vide le tableau
@@ -181,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // On créé le produit
         const produit = {
-            name: inputName.value,
+            name: inputName.value.toUpperCase(),
             price: parseFloat(inputPrice.value),
             stock: parseInt(inputStock.value)
         };
