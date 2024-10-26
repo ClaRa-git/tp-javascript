@@ -75,23 +75,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // On est à l'écoute du clic sur le nom pour trier par nom
         thName.addEventListener('click', () => {
-            localStorage.setItem('listeProduits', JSON.stringify(sortByName(listeProduits)));
-            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-            displayProducts();
+            if (listeProduits.length > 1) { // On tri uniquement si on a plus d'un produit
+                localStorage.setItem('listeProduits', JSON.stringify(sortByName(listeProduits)));
+                listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+                displayProducts();
+            }
         });
 
         // On est à l'écoute du clic sur le prix pour trier par prix
         thPrice.addEventListener('click', () => {
-            localStorage.setItem('listeProduits', JSON.stringify(sortByPrice(listeProduits)));
-            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-            displayProducts();
+            if (listeProduits.length > 1) { // On tri uniquement si on a plus d'un produit
+                localStorage.setItem('listeProduits', JSON.stringify(sortByPrice(listeProduits)));
+                listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+                displayProducts();
+            }
         });
 
         // On est à l'écoute du clic sur la quantité pour trier par quantité
         thQuantity.addEventListener('click', () => {
-            localStorage.setItem('listeProduits', JSON.stringify(sortByQuantity(listeProduits)));
-            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-            displayProducts();
+            if (listeProduits.length > 1) { // On tri uniquement si on a plus d'un produit
+                localStorage.setItem('listeProduits', JSON.stringify(sortByQuantity(listeProduits)));
+                listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+                displayProducts();
+            }
         });
 
         // On est à l'écoute du clic sur le bouton pour supprimer tous les produits
