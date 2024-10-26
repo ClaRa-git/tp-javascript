@@ -26,6 +26,13 @@
   border: #bb2d3b;
 }
 
+#productName:hover,
+#productPrice:hover,
+#productQuantity:hover {
+  cursor: pointer;
+}
+
+th,
 td {
   text-align: center;
   vertical-align: middle;
