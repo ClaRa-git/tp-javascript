@@ -17,7 +17,7 @@ const products = [
     }
 ];
 
-// Fonction pour remplir le localStorage pour les tests
+// Fonction pour remplir le localStorage avec products pour les tests
 function fillLocalStorage() {
     products.forEach((product) => {
         product.name = product.name.toUpperCase();
@@ -66,10 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const thName = document.getElementById("productName");
         const thPrice = document.getElementById("productPrice");
         const thQuantity = document.getElementById("productQuantity");
+        const thDeleteAll = document.getElementById("productsDelete");
 
         thName.title = "Cliquez pour trier par nom";
         thPrice.title = "Cliquez pour trier par prix";
         thQuantity.title = "Cliquez pour trier par quantité";
+        thDeleteAll.title = "Cliquez pour supprimer tous les produits";
 
         // On est à l'écoute du clic sur le nom pour trier par nom
         thName.addEventListener('click', () => {
@@ -90,6 +92,17 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('listeProduits', JSON.stringify(sortByQuantity(listeProduits)));
             listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
             displayProducts();
+        });
+
+        // On est à l'écoute du clic sur le bouton pour supprimer tous les produits
+        thDeleteAll.addEventListener('click', () => {
+            if (window.confirm("Voulez-vous supprimer la totalité des produits du stock ?")) {
+                //console.log("Suppression totale");
+                listeProduits = [];
+                localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+                alerteVide();
+                displayProducts();
+            }
         });
 
         const bodyTableau = document.getElementById("products");

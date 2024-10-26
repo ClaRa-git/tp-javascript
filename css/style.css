@@ -28,7 +28,8 @@
 
 #productName:hover,
 #productPrice:hover,
-#productQuantity:hover {
+#productQuantity:hover,
+#productsDelete:hover {
   cursor: pointer;
 }
 

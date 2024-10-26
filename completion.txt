@@ -19,7 +19,7 @@ Bon développement !
 Fonctions supplémentaires possibles :
  - Masquer le tableau s'il n'y a aucun produit en stock
  - Créer la popup d'alerte (ne pas se servir de celle du système)
- - Trier le tableau (nom / prix / quantité) (b)
+ - Trier le tableau (nom / prix / quantité) (b) <-- OK
  - Vérifier si l'élément existe déjà (a) <-- OK
 
  (a)
