@@ -18,6 +18,7 @@ const products = [
 ];
 
 // Fonction pour remplir le localStorage avec products pour les tests
+// A décommenter pour remplir le localStorage puis recommenter pour ne pas écraser les données
 // !!! Efface tous les produits présents dans le localStorage !!!
 function fillLocalStorage() {
     products.forEach((product) => {
