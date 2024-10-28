@@ -17,10 +17,13 @@ Données d'exemple fournies dans le JS.
 Bon développement !
 
 Fonctions supplémentaires possibles :
- - Masquer le tableau s'il n'y a aucun produit en stock
+ - Masquer le tableau / les onctionnalités s'il n'y a aucun produit en stock
  - Créer la popup d'alerte (ne pas se servir de celle du système)
  - Trier le tableau (nom / prix / quantité) (b) <-- OK
  - Vérifier si l'élément existe déjà (a) <-- OK
+ - Changer la quantité des produits déjà présents
+ - Bouton de mise à 0 des stocks (individuels / général)
+
 
  (a)
  -> Création d'une fonction majuscule pour ne pas être gêner par la casse (permet de mettre en maj des données déjà existantes)

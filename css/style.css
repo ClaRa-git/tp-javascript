@@ -13,6 +13,13 @@
 
 /* body */
 
+/* Tableau */
+
+/* ligne de tri */
+.tri {
+  cursor: pointer;
+}
+
 /* Icone de suppression */
 .delete-icon {
   background-color: #dc3545;
@@ -27,13 +34,6 @@
 .delete-icon:hover {
   background-color: #bb2d3b;
   border: #bb2d3b;
-}
-
-/* Tableau */
-
-/* ligne de tri */
-.tri {
-  cursor: pointer;
 }
 
 th,
