@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Formulaire d'ajout d'un produit dans le stock
     formulaire.addEventListener('submit', (e) => {
         e.preventDefault(); // Empêche le fonctionnement normal du formulaire
+        let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
 
         // On récupère les éléments du formulaire
         const inputName = document.getElementById("add-name");
