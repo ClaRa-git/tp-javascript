@@ -2,7 +2,7 @@
 
 <h1>Gestionnaire de stock</h1>
 
-<h2>Fonctionnalités </h2>:
+<h2>Fonctionnalités </h2>
 <ul>
   <li>Ajout de nouveaux produits</li>
   <li>Suppression de produits existants</li>
