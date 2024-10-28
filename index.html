@@ -15,11 +15,7 @@
 
 <body>
     <div class="container">
-        <!-- Titre + icone de suppression totale du stock -->
-        <div id="top-container">
-            <h1>Gestion de stock</h1>
-            <div id="delete-all"></div>
-        </div>
+        <h1>Gestion de stock</h1>
 
         <hr>
 
@@ -30,12 +26,12 @@
 
         <!-- Tableau d'affichage des produits en stock -->
         <table class="table table-bordered table-hover">
-            <thead class="thead-dark">
+            <thead id="th-table" class="thead-dark">
                 <tr>
-                    <th id="productName">Nom du produit</th>
-                    <th id="productPrice">Prix unitaire</th>
-                    <th id="productQuantity" colspan="2">Stock</th>
-                    <th id="productsDelete">Supprimer</th>
+                    <th>Nom du produit</th>
+                    <th>Prix unitaire</th>
+                    <th colspan="2">Stock</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody id="products"></tbody>

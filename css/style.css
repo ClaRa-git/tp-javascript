@@ -1,22 +1,25 @@
 /* Votre CSS ici ! */
+
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-#top-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
+/* HEADER */
 
+/* MAIN */
+
+/* body */
+
+/* Icone de suppression */
 .delete-icon {
   background-color: #dc3545;
   border: 1px solid #dc3545;
   border-radius: 5px;
   color: #fff;
+  cursor: pointer;
   padding: 5px;
   transition: background-color 0.2s ease-in-out;
 }
@@ -26,10 +29,10 @@
   border: #bb2d3b;
 }
 
-#productName:hover,
-#productPrice:hover,
-#productQuantity:hover,
-#productsDelete:hover {
+/* Tableau */
+
+/* ligne de tri */
+.tri {
   cursor: pointer;
 }
 
@@ -46,3 +49,7 @@ button {
 .row {
   align-items: center;
 }
+
+/* FOOTER */
+
+/* MEDIA QUERIES */
