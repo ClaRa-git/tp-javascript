@@ -2,7 +2,7 @@
 
 <h1>Gestionnaire de stock</h1>
 
-<h2>Fonctionnalités </h2>
+<h2>Fonctionnalités de la v1 </h2>
   <ul>
     <li>Ajout de nouveaux produits.</li>
     <li>Suppression de produits existants.</li>
@@ -16,5 +16,9 @@
     <li>Le message d'alerte s'affiche si le stock est vide. Il s'efface sinon.</li>
     <li>La ligne de tri ne s'affiche que s'il y a des produits en stock.</li>
   </ul>
+
+  <p>
+  La version 2 des fichiers est une approche différente de la suppression totale et ne possède pas les fonctions de tri.
+  </p>
 
 </html>
