@@ -28,136 +28,135 @@ function fillLocalStorage() {
 }
 //fillLocalStorage();
 
+// Fonction de tri par nom
+function sortByName(tableau) {
+    //[...tableau] permet de copier le tableau pour ne pas modifier l'original
+    return [...tableau].sort((a, b) => { return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0; });
+}
 
+// Fonction de tri par prix
+function sortByPrice(tableau) {
+    return [...tableau].sort((a, b) => { return a.price - b.price; });
+}
 
-// DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function () {
+// Fonction de tri par stock
+function sortByQuantity(tableau) {
+    return [...tableau].sort((a, b) => { return a.stock - b.stock; });
+}
 
-    // Fonction de tri par nom
-    function sortByName(tableau) {
-        //[...tableau] permet de copier le tableau pour ne pas modifier l'original
-        return [...tableau].sort((a, b) => { return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0; });
+//Fonction pour vérifier si le stock est vide ou non et affichier l'alerte ainsi que la ligne de tri
+function alerteVide() {
+    let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
+
+    const divAlert = document.getElementById("alert");
+    const ligneTri = document.getElementById("tri");
+
+    if (listeProduits.length <= 0) {
+        divAlert.style.display = "block"; // Si le stock est vide, on affiche l'alerte
+        ligneTri.style.display = "none"; // On cache la ligne de tri
+    } else {
+        divAlert.style.display = "none"; // Sinon on cache l'alerte
+        ligneTri.style.display = "table-row"; // On affiche la ligne de tri
     }
+}
 
-    // Fonction de tri par prix
-    function sortByPrice(tableau) {
-        return [...tableau].sort((a, b) => { return a.price - b.price; });
-    }
+// Fonction pour afficher les produits dans le tableau
+function displayProducts() {
+    let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
 
-    // Fonction de tri par stock
-    function sortByQuantity(tableau) {
-        return [...tableau].sort((a, b) => { return a.stock - b.stock; });
-    }
+    const bodyTableau = document.getElementById("products");
+    bodyTableau.innerHTML = ""; // On vide le tableau
 
-    //Fonction pour vérifier si le stock est vide ou non et affichier l'alerte ainsi que la ligne de tri
-    function alerteVide() {
-        let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
+    // On parcourt la liste des produits pour afficher chaque élément
+    listeProduits.forEach((element) => {
+        const tableRow = document.createElement('tr'); // On créé la ligne du tableau
 
-        const divAlert = document.getElementById("alert");
-        const ligneTri = document.getElementById("tri");
-
-        if (listeProduits.length <= 0) {
-            divAlert.style.display = "block"; // Si le stock est vide, on affiche l'alerte
-            ligneTri.style.display = "none"; // On cache la ligne de tri
-        } else {
-            divAlert.style.display = "none"; // Sinon on cache l'alerte
-            ligneTri.style.display = "table-row"; // On affiche la ligne de tri
-        }
-    }
-
-    // Fonction pour afficher les produits dans le tableau
-    function displayProducts() {
-        let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
-
-        const bodyTableau = document.getElementById("products");
-        bodyTableau.innerHTML = ""; // On vide le tableau
-
-        // On parcourt la liste des produits pour afficher chaque élément
-        listeProduits.forEach((element) => {
-            const tableRow = document.createElement('tr'); // On créé la ligne du tableau
-
-            // On commence à remplir la ligne
-            tableRow.innerHTML = `
+        // On commence à remplir la ligne
+        tableRow.innerHTML = `
                 <td class="w-100">${element.name}</td>
                 <td>${element.price}</td>
                 <td class="stock">${element.stock}</td>
             `;
 
-            // Ajout de couleur pour voir l'état du stock. Vert >10 ; Orange (0 < et < 10) ; Rouge = 0
-            // On enlève les classes qui ne sont pas pertinente (pas d'erreur si elles n'existent pas)
-            if (element.stock === 0) {
-                tableRow.classList.add("table-danger");
-                tableRow.classList.remove("table-warning");
-                tableRow.classList.remove("table-success");
-            } else if (element.stock < 10) {
-                tableRow.classList.remove("table-danger");
-                tableRow.classList.add("table-warning");
-                tableRow.classList.remove("table-success");
-            } else {
-                tableRow.classList.remove("table-danger");
-                tableRow.classList.remove("table-warning");
-                tableRow.classList.add("table-success");
-            }
+        // Ajout de couleur pour voir l'état du stock. Vert >10 ; Orange (0 < et < 10) ; Rouge = 0
+        // On enlève les classes qui ne sont pas pertinente (pas d'erreur si elles n'existent pas)
+        if (element.stock === 0) {
+            tableRow.classList.add("table-danger");
+            tableRow.classList.remove("table-warning");
+            tableRow.classList.remove("table-success");
+        } else if (element.stock < 10) {
+            tableRow.classList.remove("table-danger");
+            tableRow.classList.add("table-warning");
+            tableRow.classList.remove("table-success");
+        } else {
+            tableRow.classList.remove("table-danger");
+            tableRow.classList.remove("table-warning");
+            tableRow.classList.add("table-success");
+        }
 
-            // Création de la cellule pour les boutons +/-
-            const tdButtonAddMinus = document.createElement("td");
-            tdButtonAddMinus.className = "text-nowrap";
+        // Création de la cellule pour les boutons +/-
+        const tdButtonAddMinus = document.createElement("td");
+        tdButtonAddMinus.className = "text-nowrap";
 
-            // Création du bouton de retrait
-            const buttonMinus = document.createElement("button");
-            buttonMinus.className = "btn btn-primary btn-sm stock-del";
-            buttonMinus.innerHTML = "&minus;";
-            // On est à l'écoute du clic sur le bouton pour retirer -1 au nombre en stock
-            buttonMinus.addEventListener("click", () => {
-                //console.log("Retrait");
-                // on vérifie s'il reste des éléments à enlever
-                if (element.stock > 0) {
-                    element.stock--;
-                    localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-                    listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
-                    displayProducts();
-                }
-            });
-
-            // Création du bouton d'ajout
-            const buttonAdd = document.createElement("button");
-            buttonAdd.className = "btn btn-outline-primary btn-sm stock-add";
-            buttonAdd.innerHTML = "&plus;";
-            // On est à l'écoute du clic sur le bouton pour ajouter +1 au nombre en stock
-            buttonAdd.addEventListener("click", () => {
-                //console.log("Ajout");
-                element.stock++;
+        // Création du bouton de retrait
+        const buttonMinus = document.createElement("button");
+        buttonMinus.className = "btn btn-primary btn-sm stock-del";
+        buttonMinus.innerHTML = "&minus;";
+        // On est à l'écoute du clic sur le bouton pour retirer -1 au nombre en stock
+        buttonMinus.addEventListener("click", () => {
+            //console.log("Retrait");
+            // on vérifie s'il reste des éléments à enlever
+            if (element.stock > 0) {
+                element.stock--;
                 localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
                 listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
                 displayProducts();
-            });
-
-            tdButtonAddMinus.append(buttonMinus, buttonAdd); // Ajout des boutons dans la cellule
-
-            // Création de la cellule pour le bouton Delete
-            const tdDelete = document.createElement("td");
-            const buttonDelete = document.createElement("button"); // Création du bouton Delete
-            buttonDelete.className = "btn btn-danger btn-sm product-del";
-            buttonDelete.innerHTML = "&Cross;";
-            // On est à l'écoute du clic sur le bouton pour supprimer le produit du stock
-            buttonDelete.addEventListener("click", () => {
-                //console.log("Suppresion");
-                // On affiche une popup d'alerte pour confirmer la suppression
-                if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
-                    // console.log("Suppression");
-                    listeProduits = listeProduits.filter((produit) => produit.name !== element.name);
-                    localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-                    alerteVide();
-                    displayProducts();
-                }
-            });
-
-            tdDelete.appendChild(buttonDelete); // Ajout du bouton à la cellule
-
-            tableRow.append(tdButtonAddMinus, tdDelete); // Ajout des case à la ligne du tableau
-            bodyTableau.appendChild(tableRow);
+            }
         });
-    }
+
+        // Création du bouton d'ajout
+        const buttonAdd = document.createElement("button");
+        buttonAdd.className = "btn btn-outline-primary btn-sm stock-add";
+        buttonAdd.innerHTML = "&plus;";
+        // On est à l'écoute du clic sur le bouton pour ajouter +1 au nombre en stock
+        buttonAdd.addEventListener("click", () => {
+            //console.log("Ajout");
+            element.stock++;
+            localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+            listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+            displayProducts();
+        });
+
+        tdButtonAddMinus.append(buttonMinus, buttonAdd); // Ajout des boutons dans la cellule
+
+        // Création de la cellule pour le bouton Delete
+        const tdDelete = document.createElement("td");
+        const buttonDelete = document.createElement("button"); // Création du bouton Delete
+        buttonDelete.className = "btn btn-danger btn-sm product-del";
+        buttonDelete.innerHTML = "&Cross;";
+        // On est à l'écoute du clic sur le bouton pour supprimer le produit du stock
+        buttonDelete.addEventListener("click", () => {
+            //console.log("Suppresion");
+            // On affiche une popup d'alerte pour confirmer la suppression
+            if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
+                // console.log("Suppression");
+                listeProduits = listeProduits.filter((produit) => produit.name !== element.name);
+                localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
+                alerteVide();
+                displayProducts();
+            }
+        });
+
+        tdDelete.appendChild(buttonDelete); // Ajout du bouton à la cellule
+
+        tableRow.append(tdButtonAddMinus, tdDelete); // Ajout des case à la ligne du tableau
+        bodyTableau.appendChild(tableRow);
+    });
+}
+
+
+// DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function () {
 
     // On récupère la thead du tableau
     const headTableau = document.getElementById("th-table");
@@ -257,7 +256,6 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < listeProduits.length; i++) {
             if (listeProduits[i].name.toUpperCase() === inputName.value.toUpperCase()) {
                 alert("Ce produit est déjà en stock !");
-                // Une fois le produit créé, on vide les inputs du formulaire
                 inputName.value = "";
                 inputPrice.value = "";
                 inputStock.value = "";
@@ -268,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // On créé le produit
         const produit = {
             name: inputName.value.toUpperCase(),
-            price: parseFloat(inputPrice.value),
+            price: parseFloat(inputPrice.value).toFixed(2),
             stock: parseInt(inputStock.value)
         };
 

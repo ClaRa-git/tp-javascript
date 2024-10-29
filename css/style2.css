@@ -1,0 +1,34 @@
+/* Votre CSS ici ! */
+
+#top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.delete-icon {
+  color: #fff;
+  background-color: #DC3545;
+  border: 1px solid #DC3545;
+  border-radius: 5px;
+  padding: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.delete-icon:hover {
+  background-color: #BB2D3B;
+  border: 1px solid #BB2D3B;
+}
+
+#productName:hover,
+#productPrice:hover,
+#productStock:hover {
+  cursor: pointer;
+}
+
+th,
+td {
+  text-align: center;
+  vertical-align: middle;
+}
