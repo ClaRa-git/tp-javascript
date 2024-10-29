@@ -1,5 +1,7 @@
 /* Votre CSS ici ! */
 
+
+/* Body */
 #top-container {
   display: flex;
   justify-content: space-between;
@@ -7,6 +9,7 @@
   margin-top: 10px;
 }
 
+/* Icone de suppression */
 .delete-icon {
   color: #fff;
   background-color: #DC3545;
@@ -21,6 +24,8 @@
   border: 1px solid #BB2D3B;
 }
 
+
+/* Tableau */
 #productName:hover,
 #productPrice:hover,
 #productStock:hover {

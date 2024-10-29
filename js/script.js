@@ -26,7 +26,7 @@ function fillLocalStorage() {
     });
     localStorage.setItem('listeProduits', JSON.stringify(products));
 }
-//fillLocalStorage();
+fillLocalStorage();
 
 // Fonction de tri par nom
 function sortByName(tableau) {
@@ -68,7 +68,7 @@ function displayProducts() {
     bodyTableau.innerHTML = ""; // On vide le tableau
 
     // On parcourt la liste des produits pour afficher chaque élément
-    listeProduits.forEach((element) => {
+    listeProduits.forEach((element, key) => {
         const tableRow = document.createElement('tr'); // On créé la ligne du tableau
 
         // On commence à remplir la ligne
@@ -136,11 +136,11 @@ function displayProducts() {
         buttonDelete.innerHTML = "&Cross;";
         // On est à l'écoute du clic sur le bouton pour supprimer le produit du stock
         buttonDelete.addEventListener("click", () => {
-            //console.log("Suppresion");
             // On affiche une popup d'alerte pour confirmer la suppression
             if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
                 // console.log("Suppression");
-                listeProduits = listeProduits.filter((produit) => produit.name !== element.name);
+                //listeProduits = listeProduits.filter((produit) => produit.name !== element.name); Ne fonctionne que si le nom est unique sinon supprime tous les produits du même nom
+                listeProduits.splice(key, 1); // Suppression de l'élément du tableau à l'endroit donné. Permet les doublons.
                 localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
                 alerteVide();
                 displayProducts();
