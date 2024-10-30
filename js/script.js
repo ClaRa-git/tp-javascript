@@ -24,7 +24,7 @@ function fillLocalStorage() {
     products.forEach((product) => {
         product.name = product.name.toUpperCase();
     });
-    localStorage.setItem('listeProduits', JSON.stringify(products));
+    localStorage.setItem('productsList', JSON.stringify(products));
 }
 //fillLocalStorage();
 
@@ -44,30 +44,30 @@ function sortByQuantity(tableau) {
 }
 
 //Fonction pour vérifier si le stock est vide ou non et affichier l'alerte ainsi que la ligne de tri
-function alerteVide() {
-    let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
+function warningEmptyStock() {
+    let productsList = JSON.parse(localStorage.getItem("productsList")) || []; // Récupération des produits, si vide alors []
 
     const divAlert = document.getElementById("alert");
-    const ligneTri = document.getElementById("tri");
+    const sortRow = document.getElementById("sortRow");
 
-    if (listeProduits.length <= 0) {
+    if (productsList.length <= 0) {
         divAlert.style.display = "block"; // Si le stock est vide, on affiche l'alerte
-        ligneTri.style.display = "none"; // On cache la ligne de tri
+        sortRow.style.display = "none"; // On cache la ligne de tri
     } else {
         divAlert.style.display = "none"; // Sinon on cache l'alerte
-        ligneTri.style.display = "table-row"; // On affiche la ligne de tri
+        sortRow.style.display = "table-row"; // On affiche la ligne de tri
     }
 }
 
 // Fonction pour afficher les produits dans le tableau
 function displayProducts() {
-    let listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || []; // Récupération des produits, si vide alors []
+    let productsList = JSON.parse(localStorage.getItem("productsList")) || []; // Récupération des produits, si vide alors []
 
-    const bodyTableau = document.getElementById("products");
-    bodyTableau.innerHTML = ""; // On vide le tableau
+    const bodyTable = document.getElementById("products");
+    bodyTable.innerHTML = ""; // On vide le tableau
 
     // On parcourt la liste des produits pour afficher chaque élément
-    listeProduits.forEach((element, key) => {
+    productsList.forEach((element, key) => {
         const tableRow = document.createElement('tr'); // On créé la ligne du tableau
 
         // On commence à remplir la ligne
@@ -101,8 +101,8 @@ function displayProducts() {
             // on vérifie s'il reste des éléments à enlever
             if (element.stock > 0) {
                 element.stock--;
-                localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-                listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+                localStorage.setItem("productsList", JSON.stringify(productsList));
+                productsList = JSON.parse(localStorage.getItem("productsList")) || [];
                 displayProducts();
             }
         });
@@ -115,8 +115,8 @@ function displayProducts() {
         buttonAdd.addEventListener("click", () => {
             //console.log("Ajout");
             element.stock++;
-            localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-            listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+            localStorage.setItem("productsList", JSON.stringify(productsList));
+            productsList = JSON.parse(localStorage.getItem("productsList")) || [];
             displayProducts();
         });
 
@@ -132,10 +132,10 @@ function displayProducts() {
             // On affiche une popup d'alerte pour confirmer la suppression
             if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
                 // console.log("Suppression");
-                //listeProduits = listeProduits.filter((produit) => produit.name !== element.name); Ne fonctionne que si le nom est unique sinon supprime tous les produits du même nom
-                listeProduits.splice(key, 1); // Suppression de l'élément du tableau à l'endroit donné. Permet les doublons.
-                localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-                alerteVide();
+                //productsList = productsList.filter((produit) => produit.name !== element.name); Ne fonctionne que si le nom est unique sinon supprime tous les produits du même nom
+                productsList.splice(key, 1); // Suppression de l'élément du tableau à l'endroit donné. Permet les doublons.
+                localStorage.setItem("productsList", JSON.stringify(productsList));
+                warningEmptyStock();
                 displayProducts();
             }
         });
@@ -143,7 +143,7 @@ function displayProducts() {
         tdDelete.appendChild(buttonDelete); // Ajout du bouton à la cellule
 
         tableRow.append(tdButtonAddMinus, tdDelete); // Ajout des case à la ligne du tableau
-        bodyTableau.appendChild(tableRow);
+        bodyTable.appendChild(tableRow);
     });
 }
 
@@ -152,26 +152,26 @@ function displayProducts() {
 document.addEventListener('DOMContentLoaded', function () {
 
     // On récupère la thead du tableau
-    const headTableau = document.getElementById("th-table");
-    const tr = document.createElement('tr'); // On créé une ligne pour le tableau
-    tr.id = "tri";
+    const headTable = document.getElementById("th-table");
+    const tableRow = document.createElement('tr'); // On créé une ligne pour le tableau
+    tableRow.id = "sortRow";
 
     // On créé les éléments de la ligne tri du tableau
     // Tri par nom
     const sortName = document.createElement("td");
     sortName.innerHTML = "Tri par nom";
-    sortName.className = "tri";
+    sortName.className = "sorting";
 
     // Tri par prix
     const sortPrice = document.createElement("td");
     sortPrice.innerHTML = "Tri par prix";
-    sortPrice.className = "tri";
+    sortPrice.className = "sorting";
 
     // Tri par quantité
     const sortQuantity = document.createElement("td");
     sortQuantity.colSpan = 2;
     sortQuantity.innerHTML = "Tri par quantité";
-    sortQuantity.className = "tri";
+    sortQuantity.className = "sorting";
 
     // Icone de suppression totale
     const deleteAll = document.createElement("td");
@@ -180,42 +180,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // On est à l'écoute du clic sur le nom pour trier par nom
     sortName.addEventListener('click', () => {
-        let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-        if (listeProduits.length > 1) { // On tri uniquement si on a plus d'un produit
-            localStorage.setItem('listeProduits', JSON.stringify(sortByName(listeProduits)));
-            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+        if (productsList.length > 1) { // On tri uniquement si on a plus d'un produit
+            localStorage.setItem('productsList', JSON.stringify(sortByName(productsList)));
+            productsList = JSON.parse(localStorage.getItem('productsList')) || [];
             displayProducts();
         }
     });
 
     // On est à l'écoute du clic sur le prix pour trier par prix
     sortPrice.addEventListener('click', () => {
-        let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-        if (listeProduits.length > 1) { // On tri uniquement si on a plus d'un produit
-            localStorage.setItem('listeProduits', JSON.stringify(sortByPrice(listeProduits)));
-            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+        if (productsList.length > 1) { // On tri uniquement si on a plus d'un produit
+            localStorage.setItem('productsList', JSON.stringify(sortByPrice(productsList)));
+            productsList = JSON.parse(localStorage.getItem('productsList')) || [];
             displayProducts();
         }
     });
 
     // On est à l'écoute du clic sur la quantité pour trier par quantité
     sortQuantity.addEventListener('click', () => {
-        let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-        if (listeProduits.length > 1) { // On tri uniquement si on a plus d'un produit
-            localStorage.setItem('listeProduits', JSON.stringify(sortByQuantity(listeProduits)));
-            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+        if (productsList.length > 1) { // On tri uniquement si on a plus d'un produit
+            localStorage.setItem('productsList', JSON.stringify(sortByQuantity(productsList)));
+            productsList = JSON.parse(localStorage.getItem('productsList')) || [];
             displayProducts();
         }
     });
 
     // Si l'utilisateur clique sur l'icone alors on efface tout
     deleteIcon.addEventListener("click", () => {
-        let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
         if (window.confirm("Voulez-vous supprimer la totalité des produits du stock ?")) {
             //console.log("Suppression totale");
-            listeProduits = [];
-            localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-            alerteVide();
+            productsList = [];
+            localStorage.setItem("productsList", JSON.stringify(productsList));
+            warningEmptyStock();
             displayProducts();
         }
     });
@@ -223,16 +223,16 @@ document.addEventListener('DOMContentLoaded', function () {
     deleteAll.appendChild(deleteIcon);
 
     // On ajoute les éléments à la ligne
-    tr.append(sortName, sortPrice, sortQuantity, deleteAll);
+    tableRow.append(sortName, sortPrice, sortQuantity, deleteAll);
 
-    headTableau.appendChild(tr); // On ajoute la ligne au tableau
+    headTable.appendChild(tableRow); // On ajoute la ligne au tableau
 
-    const formulaire = document.getElementById("ajoutForm");
+    const form = document.getElementById("form");
 
     // Formulaire d'ajout d'un produit dans le stock
-    formulaire.addEventListener('submit', (e) => {
+    form.addEventListener('submit', (e) => {
         e.preventDefault(); // Empêche le fonctionnement normal du formulaire
-        let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
 
         // On récupère les éléments du formulaire
         const inputName = document.getElementById("add-name");
@@ -246,8 +246,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Vérification de si un produit est déjà dans le tableau (for car forEach ne convient pas ici)
-        for (let i = 0; i < listeProduits.length; i++) {
-            if (listeProduits[i].name.toUpperCase() === inputName.value.toUpperCase()) {
+        for (let i = 0; i < productsList.length; i++) {
+            if (productsList[i].name.toUpperCase() === inputName.value.toUpperCase()) {
                 alert("Ce produit est déjà en stock !");
                 inputName.value = "";
                 inputPrice.value = "";
@@ -257,26 +257,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // On créé le produit
-        const produit = {
+        const product = {
             name: inputName.value.toUpperCase(),
             price: parseFloat(inputPrice.value).toFixed(2),
             stock: parseInt(inputStock.value)
         };
 
         // On l'ajoute à la liste de produit ainsi qu'au localStorage
-        listeProduits.push(produit);
-        localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-        listeProduits = JSON.parse(localStorage.getItem("listeProduits")) || [];
+        productsList.push(product);
+        localStorage.setItem("productsList", JSON.stringify(productsList));
+        productsList = JSON.parse(localStorage.getItem("productsList")) || [];
 
         // Une fois le produit créé, on vide les inputs du formulaire
         inputName.value = "";
         inputPrice.value = "";
         inputStock.value = "";
 
-        alerteVide();
+        warningEmptyStock();
         displayProducts();
     });
 
-    alerteVide();
+    warningEmptyStock();
     displayProducts();
 });
