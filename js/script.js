@@ -79,19 +79,13 @@ function displayProducts() {
             `;
 
         // Ajout de couleur pour voir l'état du stock. Vert >10 ; Orange (0 < et < 10) ; Rouge = 0
-        // On enlève les classes qui ne sont pas pertinente (pas d'erreur si elles n'existent pas)
+        // tableRow.children[2] est la cellule du stock
         if (element.stock === 0) {
-            tableRow.classList.add("table-danger");
-            tableRow.classList.remove("table-warning");
-            tableRow.classList.remove("table-success");
+            tableRow.children[2].classList.add("table-danger");
         } else if (element.stock < 10) {
-            tableRow.classList.remove("table-danger");
-            tableRow.classList.add("table-warning");
-            tableRow.classList.remove("table-success");
+            tableRow.children[2].classList.add("table-warning");
         } else {
-            tableRow.classList.remove("table-danger");
-            tableRow.classList.remove("table-warning");
-            tableRow.classList.add("table-success");
+            tableRow.children[2].classList.add("table-success");
         }
 
         // Création de la cellule pour les boutons +/-

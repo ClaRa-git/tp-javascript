@@ -98,17 +98,11 @@ function displayProducts() {
             <td class="stock">${element.stock}</td>
         `;
         if (element.stock === 0) {
-            tableRow.classList.add("table-danger");
-            tableRow.classList.remove("table-warning");
-            tableRow.classList.remove("table-success");
+            tableRow.children[2].classList.add("table-danger");
         } else if (element.stock < 10) {
-            tableRow.classList.remove("table-danger");
-            tableRow.classList.add("table-warning");
-            tableRow.classList.remove("table-success");
+            tableRow.children[2].classList.add("table-warning");
         } else {
-            tableRow.classList.remove("table-danger");
-            tableRow.classList.remove("table-warning");
-            tableRow.classList.add("table-success");
+            tableRow.children[2].classList.add("table-success");
         }
 
         const tdButtonAddMinus = document.createElement('td'); // Création de la cellule pour les boutons d'ajout et de suppression
