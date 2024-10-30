@@ -30,17 +30,17 @@ function fillLocalStorage() {
 
 // Fonction de tri par nom
 function triParNom(tableau) {
-    return [...tableau].sort((a, b) => { return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0; });
+    return tableau.sort((a, b) => { return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0; });
 }
 
 // Fonction de tri par prix
 function triParPrix(tableau) {
-    return [...tableau].sort((a, b) => { return a.price - b.price; });
+    return tableau.sort((a, b) => { return a.price - b.price; });
 }
 
 // Fonction de tri par stock
 function triParStock(tableau) {
-    return [...tableau].sort((a, b) => { return a.stock - b.stock; });
+    return tableau.sort((a, b) => { return a.stock - b.stock; });
 }
 
 
