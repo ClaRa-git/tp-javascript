@@ -43,17 +43,43 @@ function triParStock(tableau) {
     return tableau.sort((a, b) => { return a.stock - b.stock; });
 }
 
+function searchName(name) {
+    let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+    let matched = [];
+    listeProduits.forEach((element, key) => {
+        let result = element.name.match(name.toUpperCase());
+        if (result != null) {
+            matched.push(key);
+        }
+    });
+
+    if (matched.length > 0) {
+        matched.forEach((element) => {
+            listeProduits.unshift(listeProduits.splice(element, 1)[0]);
+        });
+    }
+    else {
+        alert("Aucun produit ne correspond à votre recherche");
+    }
+
+    return listeProduits;
+}
+
+
 
 // Vérifie si le stock est vide ou non
 function alerteVide() {
     let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
 
     const divAlert = document.getElementById('alert');
+    const searchBar = document.getElementById('searchBar');
 
     if (listeProduits.length <= 0) {
         divAlert.style.display = 'block';
+        searchBar.style.display = 'none';
     } else {
         divAlert.style.display = 'none';
+        searchBar.style.display = 'flex';
     }
 }
 
@@ -172,6 +198,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     divDeleteAll.appendChild(iconDelete);
+
+    const inputSearch = document.getElementById("search");
+    const buttonSearch = document.getElementById("buttonSearch");
+    buttonSearch.addEventListener('click', () => {
+        let search = inputSearch.value.toUpperCase();
+        localStorage.setItem('listeProduits', JSON.stringify(searchName(search)));
+        displayProducts();
+    });
+
 
     const formulaire = document.getElementById("ajoutForm");
 

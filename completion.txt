@@ -21,8 +21,9 @@ Fonctions supplémentaires possibles :
  - Créer la popup d'alerte (ne pas se servir de celle du système)
  - Trier le tableau (nom / prix / quantité) (b) <-- OK
  - Vérifier si l'élément existe déjà (a) <-- OK
- - Changer la quantité des produits déjà présents
+ - Changer la quantité des produits déjà présents dals le stock
  - Bouton de mise à 0 des stocks (individuels / général)
+ - Recherche (c) <-- OK
 
 
  (a)
@@ -34,3 +35,9 @@ Fonctions supplémentaires possibles :
  -> https://www.trucsweb.com/tutoriels/javascript/tableau-tri/
  -> Création d'une ligne dans le tableau pour le tri ? (ou utilisation de la ligne de th existante)
  -> Utilisation de la méthode monTableau.sort() pour le nom et monTableau.sort((a, b) => a - b); pour les nombres.
+
+ (c)
+ -> Mettre en place un input + un bouton
+ -> Récupérer la valeur de l'input (Attention à la casse)
+ -> Comparer chaque nom de produit à l'input
+ -> Afficher le résultat

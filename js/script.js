@@ -43,19 +43,51 @@ function sortByQuantity(tableau) {
     return tableau.sort((a, b) => { return a.stock - b.stock; });
 }
 
+// Fonction de recherche par nom ou par bout de nom
+// Retourne un tableau trié correspondant à la recherche
+// Si les résultats sont trouvés, ils sont placés en premier
+function searchName(name) {
+    let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+    let matched = [];
+    // On parcourt la liste des produits pour trouver les correspondances et on récupère les index
+    productsList.forEach((product, key) => {
+        let result = product.name.match(name.toUpperCase());
+        if (result != null) {
+            matched.push(key);
+        }
+    });
+
+    // Si on a trouvé des correspondances, on les retirant de leur position et on les ajoute au début du tableau
+    // Sinon on affiche une alerte
+    if (matched.length > 0) {
+        matched.forEach((element) => {
+            productsList.unshift(productsList.splice(element, 1)[0]); // .splice() renvoie un tableau donc pour récupérer juste l'élément on met [0]
+        });
+    }
+    else {
+        alert("Aucune correspondance trouvée");
+    }
+
+    return productsList;
+}
+
 //Fonction pour vérifier si le stock est vide ou non et affichier l'alerte ainsi que la ligne de tri
 function warningEmptyStock() {
     let productsList = JSON.parse(localStorage.getItem("productsList")) || []; // Récupération des produits, si vide alors []
 
     const divAlert = document.getElementById("alert");
     const sortRow = document.getElementById("sortRow");
+    const searchBar = document.getElementById("searchBar");
 
     if (productsList.length <= 0) {
         divAlert.style.display = "block"; // Si le stock est vide, on affiche l'alerte
         sortRow.style.display = "none"; // On cache la ligne de tri
+        searchBar.style.display = "none"; // On cache la barre de recherche
+
     } else {
         divAlert.style.display = "none"; // Sinon on cache l'alerte
         sortRow.style.display = "table-row"; // On affiche la ligne de tri
+        searchBar.style.display = "flex"; // On affiche la barre de recherche
     }
 }
 
@@ -150,6 +182,16 @@ function displayProducts() {
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
+
+    // On récupère les éléments de la barre de recherche
+    const inputSearch = document.getElementById("search");
+    const buttonSearch = document.getElementById("buttonSearch");
+
+    buttonSearch.addEventListener('click', () => {
+        let search = inputSearch.value.toUpperCase();
+        localStorage.setItem('productsList', JSON.stringify(searchName(search)));
+        displayProducts();
+    });
 
     // On récupère la thead du tableau
     const headTable = document.getElementById("th-table");

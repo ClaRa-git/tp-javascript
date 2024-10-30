@@ -13,6 +13,25 @@
 
 /* body */
 
+.container {
+  margin-bottom: 20px;
+}
+
+/* Barre de recherche */
+#searchBar {
+  display: flex;
+  margin: 10px;
+}
+
+#search {
+  flex: 2 1 0;
+  margin-right: 10px;
+}
+
+#searchButton {
+  flex: 1 1 0;
+}
+
 /* Tableau */
 
 /* ligne de tri */

@@ -15,10 +15,12 @@
     <li>Si un produit existe déjà, il ne peut être rentrer dans le stock à nouveau.</li>
     <li>Le message d'alerte s'affiche si le stock est vide. Il s'efface sinon.</li>
     <li>La ligne de tri ne s'affiche que s'il y a des produits en stock.</li>
+    <li>Recherche par nom ou bout de mot.</li>
   </ul>
 
   <p>
-  La version 2 des fichiers est une approche différente de la suppression totale et ne possède pas les fonctions de tri.
+  La version 2 des fichiers est une approche différente de la suppression totale et des fonctions de tri.
+  Elle sert également à tester la mise en place des fonctionnalités sans la création de branches.
   </p>
 
 </html>

@@ -24,6 +24,21 @@
   border: 1px solid #BB2D3B;
 }
 
+/* Barre de recherche */
+#searchBar {
+  display: flex;
+  margin: 10px;
+}
+
+#search {
+  flex: 2 1 0;
+  margin-right: 10px;
+}
+
+#searchButton {
+  flex: 1 1 0;
+}
+
 
 /* Tableau */
 #productName:hover,
