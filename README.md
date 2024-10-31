@@ -4,7 +4,7 @@
 
   <p>
   La version 1 est strictement ce qui a été demandé dans les consignes.
-  La version 2 des fichiers est une version plus complète avec la totalité des fonctions listées ci-dessus.
+  La version 2 des fichiers est une version plus complète avec la totalité des fonctions listées ci-dessous.
   </p>
 
   <h2>Fonctionnalités de la v1 </h2>
