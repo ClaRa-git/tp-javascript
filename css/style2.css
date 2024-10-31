@@ -1,30 +1,27 @@
 /* Votre CSS ici ! */
 
-
-/* Body */
-#top-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
+/* ----- RESET ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Icone de suppression */
-.delete-icon {
-  color: #fff;
-  background-color: #DC3545;
-  border: 1px solid #DC3545;
-  border-radius: 5px;
-  padding: 5px;
-  transition: background-color 0.2s ease-in-out;
+/* ----- HEADER ----- */
+
+/* ----- MAIN ----- */
+
+/* --- body --- */
+body {
+  margin: 10px;
 }
 
-.delete-icon:hover {
-  background-color: #BB2D3B;
-  border: 1px solid #BB2D3B;
+/* - container - */
+.container {
+  margin-bottom: 20px;
 }
 
-/* Barre de recherche */
+/* - barre de recherche - */
 #searchBar {
   display: flex;
   margin: 10px;
@@ -39,12 +36,27 @@
   flex: 1 1 0;
 }
 
+/* - tableau - */
 
-/* Tableau */
-#productName:hover,
-#productPrice:hover,
-#productStock:hover {
+/* ligne de tri */
+.sorting {
   cursor: pointer;
+}
+
+/* icone de suppression */
+.delete-icon {
+  background-color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.delete-icon:hover {
+  background-color: #bb2d3b;
+  border: 1px solid #bb2d3b;
 }
 
 th,
@@ -52,3 +64,15 @@ td {
   text-align: center;
   vertical-align: middle;
 }
+
+button {
+  margin: 5px;
+}
+
+.row {
+  align-items: center;
+}
+
+/* ----- FOOTER ----- */
+
+/* ----- MEDIA QUERIES ----- */

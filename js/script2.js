@@ -24,105 +24,94 @@ function fillLocalStorage() {
     products.forEach((product) => {
         product.name = product.name.toUpperCase();
     });
-    localStorage.setItem('listeProduits', JSON.stringify(products));
+    localStorage.setItem('productsList', JSON.stringify(products));
 }
 //fillLocalStorage();
 
 // Fonction de tri par nom
-function triParNom(tableau) {
+function sortByName(tableau) {
     return tableau.sort((a, b) => { return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0; });
 }
 
 // Fonction de tri par prix
-function triParPrix(tableau) {
+function sortByPrice(tableau) {
     return tableau.sort((a, b) => { return a.price - b.price; });
 }
 
 // Fonction de tri par stock
-function triParStock(tableau) {
+function sortByQuantity(tableau) {
     return tableau.sort((a, b) => { return a.stock - b.stock; });
 }
 
+// Fonction de recherche par nom ou par bout de nom
+// Retourne un tableau trié correspondant à la recherche
+// Si les résultats sont trouvés, ils sont placés en premier
+// Si aucun résultat n'est trouvé, une alerte est affichée
 function searchName(name) {
-    let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+    let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
     let matched = [];
-    listeProduits.forEach((element, key) => {
-        let result = element.name.match(name.toUpperCase());
+    // On parcourt la liste des produits pour trouver les correspondances et on récupère les index
+    productsList.forEach((product, key) => {
+        let result = product.name.match(name.toUpperCase());
         if (result != null) {
             matched.push(key);
         }
     });
 
+    // Si on a trouvé des correspondances, on les retirant de leur position et on les ajoute au début du tableau
+    // Sinon on affiche une alerte
     if (matched.length > 0) {
         matched.forEach((element) => {
-            listeProduits.unshift(listeProduits.splice(element, 1)[0]);
+            productsList.unshift(productsList.splice(element, 1)[0]); // .splice() renvoie un tableau donc pour récupérer juste l'élément on met [0]
         });
     }
     else {
-        alert("Aucun produit ne correspond à votre recherche");
+        alert("Aucune correspondance trouvée");
     }
 
-    return listeProduits;
+    return productsList;
 }
 
+//Fonction pour vérifier si le stock est vide ou non et affichier l'alerte ainsi que la ligne de tri
+function warningEmptyStock() {
+    let productsList = JSON.parse(localStorage.getItem("productsList")) || []; // Récupération des produits, si vide alors []
 
+    const divAlert = document.getElementById("alert");
+    const sortRow = document.getElementById("sortRow");
+    const searchBar = document.getElementById("searchBar");
 
-// Vérifie si le stock est vide ou non
-function alerteVide() {
-    let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+    if (productsList.length <= 0) {
+        divAlert.style.display = "block"; // Si le stock est vide, on affiche l'alerte
+        sortRow.style.display = "none"; // On cache la ligne de tri
+        searchBar.style.display = "none"; // On cache la barre de recherche
 
-    const divAlert = document.getElementById('alert');
-    const searchBar = document.getElementById('searchBar');
-
-    if (listeProduits.length <= 0) {
-        divAlert.style.display = 'block';
-        searchBar.style.display = 'none';
     } else {
-        divAlert.style.display = 'none';
-        searchBar.style.display = 'flex';
+        divAlert.style.display = "none"; // Sinon on cache l'alerte
+        sortRow.style.display = "table-row"; // On affiche la ligne de tri
+        searchBar.style.display = "flex"; // On affiche la barre de recherche
     }
 }
 
+// Fonction pour afficher les produits dans le tableau
 function displayProducts() {
-    let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+    let productsList = JSON.parse(localStorage.getItem("productsList")) || []; // Récupération des produits, si vide alors []
 
-    const thName = document.getElementById('productName');
-    thName.title = "Cliquez pour trier par nom";
+    const bodyTable = document.getElementById("products");
+    bodyTable.innerHTML = ""; // On vide le tableau
 
-    thName.addEventListener('click', () => {
-        localStorage.setItem('listeProduits', JSON.stringify(triParNom(listeProduits)));
-        listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-        displayProducts();
-    });
+    // On parcourt la liste des produits pour afficher chaque élément
+    productsList.forEach((element, key) => {
+        const tableRow = document.createElement('tr'); // On créé la ligne du tableau
 
-    const thPrice = document.getElementById('productPrice');
-    thPrice.title = "Cliquez pour trier par prix";
-
-    thPrice.addEventListener('click', () => {
-        localStorage.setItem('listeProduits', JSON.stringify(triParPrix(listeProduits)));
-        listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-        displayProducts();
-    });
-
-    const thStock = document.getElementById('productStock');
-    thStock.title = "Cliquez pour trier par stock";
-
-    thStock.addEventListener('click', () => {
-        localStorage.setItem('listeProduits', JSON.stringify(triParStock(listeProduits)));
-        listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-        displayProducts();
-    });
-
-    const bodyTableau = document.getElementById('products');
-    bodyTableau.innerHTML = '';
-
-    listeProduits.forEach((element, key) => {
-        const tableRow = document.createElement('tr');
+        // On commence à remplir la ligne
         tableRow.innerHTML = `
-            <td class="w-100">${element.name.toUpperCase()}</td>
-            <td>${element.price}</td>
-            <td class="stock">${element.stock}</td>
-        `;
+                <td class="w-100">${element.name}</td>
+                <td>${element.price}</td>
+                <td class="stock">${element.stock}</td>
+            `;
+
+        // Ajout de couleur pour voir l'état du stock. Vert >10 ; Orange (0 < et < 10) ; Rouge = 0
+        // tableRow.children[2] est la cellule du stock
         if (element.stock === 0) {
             tableRow.children[2].classList.add("table-danger");
         } else if (element.stock < 10) {
@@ -131,101 +120,177 @@ function displayProducts() {
             tableRow.children[2].classList.add("table-success");
         }
 
-        const tdButtonAddMinus = document.createElement('td'); // Création de la cellule pour les boutons d'ajout et de suppression
-        tdButtonAddMinus.classList.add('text-nowrap');
+        // Création de la cellule pour les boutons +/-
+        const tdButtonAddMinus = document.createElement("td");
+        tdButtonAddMinus.className = "text-nowrap";
 
-        const buttonMinus = document.createElement('button'); // Création du bouton de soustraction
-        buttonMinus.classList.add('btn', 'btn-primary', 'btn-sm', 'stock-del');
-        buttonMinus.innerHTML = '&minus;';
-        buttonMinus.addEventListener('click', function () {
+        // Création du bouton de retrait
+        const buttonMinus = document.createElement("button");
+        buttonMinus.className = "btn btn-primary btn-sm stock-del";
+        buttonMinus.innerHTML = "&minus;";
+        // On est à l'écoute du clic sur le bouton pour retirer -1 au nombre en stock
+        buttonMinus.addEventListener("click", () => {
+            //console.log("Retrait");
+            // on vérifie s'il reste des éléments à enlever
             if (element.stock > 0) {
                 element.stock--;
-                localStorage.setItem('listeProduits', JSON.stringify(listeProduits));
-                listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+                localStorage.setItem("productsList", JSON.stringify(productsList));
+                productsList = JSON.parse(localStorage.getItem("productsList")) || [];
                 displayProducts();
             }
         });
 
-        const buttonAdd = document.createElement('button'); // Création du bouton d'ajout
-        buttonAdd.classList.add('btn', 'btn-outline-primary', 'btn-sm', 'stock-add');
-        buttonAdd.innerHTML = '&plus;';
-        buttonAdd.addEventListener('click', function () {
+        // Création du bouton d'ajout
+        const buttonAdd = document.createElement("button");
+        buttonAdd.className = "btn btn-outline-primary btn-sm stock-add";
+        buttonAdd.innerHTML = "&plus;";
+        // On est à l'écoute du clic sur le bouton pour ajouter +1 au nombre en stock
+        buttonAdd.addEventListener("click", () => {
+            //console.log("Ajout");
             element.stock++;
-            localStorage.setItem('listeProduits', JSON.stringify(listeProduits));
-            listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+            localStorage.setItem("productsList", JSON.stringify(productsList));
+            productsList = JSON.parse(localStorage.getItem("productsList")) || [];
             displayProducts();
         });
 
         tdButtonAddMinus.append(buttonMinus, buttonAdd); // Ajout des boutons dans la cellule
 
-        const tdDelete = document.createElement('td'); // Création de la cellule pour le bouton de suppression
-        tdDelete.style.textAlign = "center";
-        const buttonDelete = document.createElement('button');
-        buttonDelete.classList.add('btn', 'btn-danger', 'btn-sm', 'product-del');
-        buttonDelete.innerHTML = '&Cross;';
-        buttonDelete.addEventListener('click', function () {
-            if (window.confirm('Voulez-vous vraiment supprimer ce produit ?')) {
-                //listeProduits = listeProduits.filter((produit) => produit.name !== element.name); Ne fonctionne que si le nom est unique sinon supprime tous les produits du même nom
-                listeProduits.splice(key, 1); // Suppression de l'élément du tableau à l'endroit donné. Permet les doublons.
-                localStorage.setItem('listeProduits', JSON.stringify(listeProduits));
-                alerteVide();
+        // Création de la cellule pour le bouton Delete
+        const tdDelete = document.createElement("td");
+        const buttonDelete = document.createElement("button"); // Création du bouton Delete
+        buttonDelete.className = "btn btn-danger btn-sm product-del";
+        buttonDelete.innerHTML = "&Cross;";
+        // On est à l'écoute du clic sur le bouton pour supprimer le produit du stock
+        buttonDelete.addEventListener("click", () => {
+            // On affiche une popup d'alerte pour confirmer la suppression
+            if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
+                // console.log("Suppression");
+                //productsList = productsList.filter((produit) => produit.name !== element.name); Ne fonctionne que si le nom est unique sinon supprime tous les produits du même nom
+                productsList.splice(key, 1); // Suppression de l'élément du tableau à l'endroit donné. Permet les doublons.
+                localStorage.setItem("productsList", JSON.stringify(productsList));
+                warningEmptyStock();
                 displayProducts();
             }
         });
 
-        tdDelete.append(buttonDelete);
+        tdDelete.appendChild(buttonDelete); // Ajout du bouton à la cellule
 
-        tableRow.append(tdButtonAddMinus, tdDelete);
-        bodyTableau.appendChild(tableRow);
+        tableRow.append(tdButtonAddMinus, tdDelete); // Ajout des case à la ligne du tableau
+        bodyTable.appendChild(tableRow);
     });
 }
+
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
 
-    const divDeleteAll = document.getElementById("deleteAll");
-    let iconDelete = document.createElement("i");
-    iconDelete.className = "bi bi-trash icon delete-icon";
+    // On récupère les éléments de la barre de recherche
+    const inputSearch = document.getElementById("search");
+    const buttonSearch = document.getElementById("buttonSearch");
 
-    iconDelete.addEventListener('click', () => {
-        if (window.confirm("Voulez-vous supprimer tout le stock ?")) {
-            console.log("Suppression totale");
-            listeProduits = [];
-            localStorage.setItem('listeProduits', JSON.stringify(listeProduits));
-            alerteVide();
+    buttonSearch.addEventListener('click', () => {
+        let search = inputSearch.value.toUpperCase();
+        localStorage.setItem('productsList', JSON.stringify(searchName(search)));
+        displayProducts();
+    });
+
+    // On récupère la thead du tableau
+    const headTable = document.getElementById("th-table");
+    const tableRow = document.createElement('tr'); // On créé une ligne pour le tableau
+    tableRow.id = "sortRow";
+
+    // On créé les éléments de la ligne tri du tableau
+    // Tri par nom
+    const sortName = document.createElement("td");
+    sortName.innerHTML = "Tri par nom";
+    sortName.className = "sorting";
+
+    // Tri par prix
+    const sortPrice = document.createElement("td");
+    sortPrice.innerHTML = "Tri par prix";
+    sortPrice.className = "sorting";
+
+    // Tri par quantité
+    const sortQuantity = document.createElement("td");
+    sortQuantity.colSpan = 2;
+    sortQuantity.innerHTML = "Tri par quantité";
+    sortQuantity.className = "sorting";
+
+    // Icone de suppression totale
+    const deleteAll = document.createElement("td");
+    let deleteIcon = document.createElement("i");
+    deleteIcon.className = "bi bi-trash icon delete-icon";
+
+    // On est à l'écoute du clic sur le nom pour trier par nom
+    sortName.addEventListener('click', () => {
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+        if (productsList.length > 1) { // On tri uniquement si on a plus d'un produit
+            localStorage.setItem('productsList', JSON.stringify(sortByName(productsList)));
+            productsList = JSON.parse(localStorage.getItem('productsList')) || [];
             displayProducts();
         }
     });
 
-    divDeleteAll.appendChild(iconDelete);
-
-    const inputSearch = document.getElementById("search");
-    const buttonSearch = document.getElementById("buttonSearch");
-    buttonSearch.addEventListener('click', () => {
-        let search = inputSearch.value.toUpperCase();
-        localStorage.setItem('listeProduits', JSON.stringify(searchName(search)));
-        displayProducts();
+    // On est à l'écoute du clic sur le prix pour trier par prix
+    sortPrice.addEventListener('click', () => {
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+        if (productsList.length > 1) { // On tri uniquement si on a plus d'un produit
+            localStorage.setItem('productsList', JSON.stringify(sortByPrice(productsList)));
+            productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+            displayProducts();
+        }
     });
 
+    // On est à l'écoute du clic sur la quantité pour trier par quantité
+    sortQuantity.addEventListener('click', () => {
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+        if (productsList.length > 1) { // On tri uniquement si on a plus d'un produit
+            localStorage.setItem('productsList', JSON.stringify(sortByQuantity(productsList)));
+            productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+            displayProducts();
+        }
+    });
 
-    const formulaire = document.getElementById("ajoutForm");
+    // Si l'utilisateur clique sur l'icone alors on efface tout
+    deleteIcon.addEventListener("click", () => {
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+        if (window.confirm("Voulez-vous supprimer la totalité des produits du stock ?")) {
+            //console.log("Suppression totale");
+            productsList = [];
+            localStorage.setItem("productsList", JSON.stringify(productsList));
+            warningEmptyStock();
+            displayProducts();
+        }
+    });
 
-    formulaire.addEventListener('submit', (e) => {
-        e.preventDefault();
+    deleteAll.appendChild(deleteIcon);
 
-        let listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
+    // On ajoute les éléments à la ligne
+    tableRow.append(sortName, sortPrice, sortQuantity, deleteAll);
+
+    headTable.appendChild(tableRow); // On ajoute la ligne au tableau
+
+    const form = document.getElementById("form");
+
+    // Formulaire d'ajout d'un produit dans le stock
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // Empêche le fonctionnement normal du formulaire
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+
+        // On récupère les éléments du formulaire
         const inputName = document.getElementById("add-name");
         const inputPrice = document.getElementById("add-price");
         const inputStock = document.getElementById("add-stock");
 
+        // On vérifie que les entrées ne sont pas vides
         if (!inputName.value || !inputPrice.value || !inputStock.value) {
             alert("Veuillez remplir tous les champs");
             return;
         }
 
         // Vérification de si un produit est déjà dans le tableau (for car forEach ne convient pas ici)
-        for (let i = 0; i < listeProduits.length; i++) {
-            if (listeProduits[i].name.toUpperCase() === inputName.value.toUpperCase()) {
+        for (let i = 0; i < productsList.length; i++) {
+            if (productsList[i].name.toUpperCase() === inputName.value.toUpperCase()) {
                 alert("Ce produit est déjà en stock !");
                 inputName.value = "";
                 inputPrice.value = "";
@@ -234,23 +299,27 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        const produit = {
+        // On créé le produit
+        const product = {
             name: inputName.value.toUpperCase(),
             price: parseFloat(inputPrice.value).toFixed(2),
             stock: parseInt(inputStock.value)
         };
 
-        inputName.value = '';
-        inputPrice.value = '';
-        inputStock.value = '';
+        // On l'ajoute à la liste de produit ainsi qu'au localStorage
+        productsList.push(product);
+        localStorage.setItem("productsList", JSON.stringify(productsList));
+        productsList = JSON.parse(localStorage.getItem("productsList")) || [];
 
-        listeProduits.push(produit);
-        localStorage.setItem("listeProduits", JSON.stringify(listeProduits));
-        listeProduits = JSON.parse(localStorage.getItem('listeProduits')) || [];
-        alerteVide();
+        // Une fois le produit créé, on vide les inputs du formulaire
+        inputName.value = "";
+        inputPrice.value = "";
+        inputStock.value = "";
+
+        warningEmptyStock();
         displayProducts();
     });
 
-    alerteVide();
+    warningEmptyStock();
     displayProducts();
 });

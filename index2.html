@@ -15,14 +15,11 @@
 
 <body>
     <div class="container">
-        <div id="top-container">
-            <h1>Gestion de stock</h1>
-
-            <div id="deleteAll"></div>
-        </div>
+        <h1>Gestion de stock</h1>
 
         <hr>
 
+        <!-- Message d'alerte si le stock est vide. Doit s'effacer dans le cas contraire -->
         <div class="alert alert-warning" id="alert">
             Aucun produit en stock.
         </div>
@@ -32,21 +29,18 @@
             <button id="buttonSearch" class="btn btn-primary">Rechercher</button>
         </div>
 
+        <!-- Tableau d'affichage des produits en stock -->
         <table class="table table-bordered table-hover">
-            <thead class="thead-dark">
+            <thead id="th-table" class="thead-dark">
                 <tr>
-                    <th id="productName">Nom du produit</th>
-                    <th id="productPrice">Prix unitaire</th>
-                    <th id="productStock" colspan="2">Stock</th>
+                    <th>Nom du produit</th>
+                    <th>Prix unitaire</th>
+                    <th colspan="2">Stock</th>
                     <th>Supprimer</th>
                 </tr>
             </thead>
-            <tbody id="products">
-
-            </tbody>
+            <tbody id="products"></tbody>
         </table>
-
-        <div id="buttonAllDelete"></div>
 
         <hr>
 
@@ -54,7 +48,7 @@
             <h5 class="card-header">Nouveau produit</h5>
 
             <!-- Formulaire d'ajout -->
-            <form class="card-body" id="ajoutForm">
+            <form class="card-body" id="form">
                 <div class="row">
                     <div class="col">
                         <input type="text" id="add-name" class="form-control" placeholder="Nom du produit">

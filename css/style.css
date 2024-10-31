@@ -1,74 +1,24 @@
 /* Votre CSS ici ! */
 
-/* RESET */
+/* ----- RESET ----- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* HEADER */
+/* ----- HEADER ----- */
 
-/* MAIN */
+/* ----- MAIN ----- */
 
-/* body */
-
-.container {
-  margin-bottom: 20px;
-}
-
-/* Barre de recherche */
-#searchBar {
-  display: flex;
+/* --- body --- */
+body {
   margin: 10px;
 }
 
-#search {
-  flex: 2 1 0;
-  margin-right: 10px;
-}
-
-#searchButton {
-  flex: 1 1 0;
-}
-
-/* Tableau */
-
-/* ligne de tri */
-.sorting {
-  cursor: pointer;
-}
-
-/* Icone de suppression */
-.delete-icon {
-  background-color: #dc3545;
-  border: 1px solid #dc3545;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  padding: 5px;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.delete-icon:hover {
-  background-color: #bb2d3b;
-  border: 1px solid #bb2d3b;
-}
-
+/* - Tableau - */
 th,
 td {
   text-align: center;
   vertical-align: middle;
 }
-
-button {
-  margin: 5px;
-}
-
-.row {
-  align-items: center;
-}
-
-/* FOOTER */
-
-/* MEDIA QUERIES */

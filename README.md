@@ -2,7 +2,23 @@
 
 <h1>Gestionnaire de stock</h1>
 
-<h2>Fonctionnalités de la v1 </h2>
+  <p>
+  La version 1 est strictement ce qui a été demandé dans les consignes.
+  La version 2 des fichiers est une version plus complète avec la totalité des fonctions listées ci-dessus.
+  </p>
+
+  <h2>Fonctionnalités de la v1 </h2>
+  <ul>
+    <li>Ajout de nouveaux produits.</li>
+    <li>Suppression de produits existants.</li>
+    <li>Modification (+/-) du stock de produits existants.</li>
+    <li>Coloration de la cellule de stock: vert si >= 10 (class .table-success), orange si < 10 (class .table-warning), rouge si = 0 (class .table-danger).</li>
+    <li>Sauvegarde des produits dans localStorage (enregistrement permanent).</li>
+    <li>Lorsque l'on supprime tous les produits le message d'alerte s'affiche.</li>
+  </ul>
+
+
+<h2>Fonctionnalités de la v2 </h2>
   <ul>
     <li>Ajout de nouveaux produits.</li>
     <li>Suppression de produits existants.</li>
@@ -17,10 +33,5 @@
     <li>La ligne de tri ne s'affiche que s'il y a des produits en stock.</li>
     <li>Recherche par nom ou bout de mot.</li>
   </ul>
-
-  <p>
-  La version 2 des fichiers est une approche différente de la suppression totale et des fonctions de tri.
-  Elle sert également à tester la mise en place des fonctionnalités sans la création de branches.
-  </p>
 
 </html>
