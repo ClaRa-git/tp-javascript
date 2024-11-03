@@ -15,6 +15,7 @@
     <li>Coloration de la cellule de stock: vert si >= 10 (class .table-success), orange si < 10 (class .table-warning), rouge si = 0 (class .table-danger).</li>
     <li>Sauvegarde des produits dans localStorage (enregistrement permanent).</li>
     <li>Le message d'alerte s'affiche si le stock est vide. Il s'efface sinon.</li>
+    <li>Suppression de tout le stock en 1 clic sur l'icone poubelle.</li>
   </ul>
 
 
