@@ -150,6 +150,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // On vérifie que les entrées prix et quantités sont bien des nombres
+        if (isNaN(inputPrice.value) || isNaN(inputStock.value)) {
+            alert("Veuillez entrer des chiffres dans les champs Prix unitaire et/ou Stock initial");
+            return;
+        }
+
         // On créé le produit
         const product = {
             name: inputName.value,

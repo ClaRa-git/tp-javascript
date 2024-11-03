@@ -288,6 +288,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // On vérifie que les entrées prix et quantité sont bien des nombres
+        if (isNaN(inputPrice.value) || isNaN(inputStock.value)) {
+            alert("Veuillez entrer des chiffres dans les champs Prix unitaire et/ou Stock initial");
+            return;
+        }
+
         // Vérification de si un produit est déjà dans le tableau (for car forEach ne convient pas ici)
         for (let i = 0; i < productsList.length; i++) {
             if (productsList[i].name.toUpperCase() === inputName.value.toUpperCase()) {
