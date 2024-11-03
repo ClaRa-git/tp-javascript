@@ -17,11 +17,11 @@ Données d'exemple fournies dans le JS.
 Bon développement !
 
 Fonctions supplémentaires possibles :
- - Masquer le tableau / les onctionnalités s'il n'y a aucun produit en stock
+ - Masquer le tableau / les fonctionnalités s'il n'y a aucun produit en stock
  - Créer la popup d'alerte (ne pas se servir de celle du système)
  - Trier le tableau (nom / prix / quantité) (b) <-- OK
  - Vérifier si l'élément existe déjà (a) <-- OK
- - Changer la quantité des produits déjà présents dals le stock
+ - Changer la quantité des produits déjà présents dans le stock
  - Bouton de mise à 0 des stocks (individuels / général)
  - Recherche (c) <-- OK
 
@@ -40,4 +40,4 @@ Fonctions supplémentaires possibles :
  -> Mettre en place un input + un bouton
  -> Récupérer la valeur de l'input (Attention à la casse)
  -> Comparer chaque nom de produit à l'input
- -> Afficher le résultat
+ -> Afficher le résultat (nouvel affichage ou dans le tableau ?)
