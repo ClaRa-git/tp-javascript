@@ -13,9 +13,27 @@
 
 /* --- body --- */
 
-h1 {
-  text-align: center;
+#top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+/* icone de suppression */
+.delete-icon {
+  background-color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.delete-icon:hover {
+  background-color: #bb2d3b;
+  border: 1px solid #bb2d3b;
 }
 
 body {

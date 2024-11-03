@@ -31,6 +31,26 @@ function fillLocalStorage() {
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
 
+    const topContainer = document.getElementById("top-container");
+    // Icone de suppression totale
+    const deleteAll = document.createElement("div");
+    let deleteIcon = document.createElement("i");
+    deleteIcon.className = "bi bi-trash icon delete-icon";
+    // Si l'utilisateur clique sur l'icone alors on efface tout
+    deleteIcon.addEventListener("click", () => {
+        let productsList = JSON.parse(localStorage.getItem('productsList')) || [];
+        if (window.confirm("Voulez-vous supprimer la totalité des produits du stock ?")) {
+            //console.log("Suppression totale");
+            productsList = [];
+            localStorage.setItem("productsList", JSON.stringify(productsList));
+            warningEmptyStock();
+            displayProducts();
+        }
+    });
+
+    deleteAll.appendChild(deleteIcon);
+    topContainer.appendChild(deleteAll);
+
     const form = document.getElementById("form");
 
     // Formulaire d'ajout d'un produit dans le stock
